@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Поиск фильмов</string>
+    <string name="page_title">Поиск фильмов</string>
+    <string name="str_menu">Меню</string>
+    <string name="str_favorite">Избранное</string>
+    <string name="str_watch_later">Посмотреть позже</string>
+    <string name="str_selections">Подборки</string>
+    <string name="str_settings">Настройки</string>
+
+</resources>

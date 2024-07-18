@@ -1,0 +1,21 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <!-- <style name="Base.Theme.Mod21_final" parent="Theme.Material3.DayNight.NoActionBar">   -->
+    <style name="Base.Theme.Mod21_final" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Primary branding color. -->
+        <item name="colorPrimary">#406EF9</item>
+        <item name="colorPrimaryVariant">#D38888</item>
+        <item name="colorOnPrimary">#D6B827</item>
+        <!-- Secondary branding color. -->
+        <item name="colorSecondary">#298AAE</item>
+        <item name="colorSecondaryVariant">#800D52</item>
+        <item name="colorOnSecondary">#673AB7</item>
+        <!-- Background color. -->
+        <item name="android:windowBackground">@android:color/background_light</item>
+        <!-- Other theme attributes -->
+    </style>
+
+    <style name="Theme.Mod21_final" parent="Base.Theme.Mod21_final" />
+</resources>

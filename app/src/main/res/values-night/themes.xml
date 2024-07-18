@@ -1,0 +1,18 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Mod21_final" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">#0643FB</item>
+        <item name="colorPrimaryVariant">#C63D3D</item>
+        <item name="colorOnPrimary">#CDB020</item>
+        <!-- Secondary branding color. -->
+        <item name="colorSecondary">#0B81AD</item>
+        <item name="colorSecondaryVariant">#E60C8F</item>
+        <item name="colorOnSecondary">#5B0FE3</item>
+        <!-- Background color. -->
+        <item name="android:windowBackground">@android:color/background_dark</item>
+
+
+    </style>
+</resources>
