@@ -7,4 +7,5 @@
     <string name="str_selections">Подборки</string>
     <string name="str_settings">Настройки</string>
     <string name="page_title">Поиск фильмов</string>
+    <string name="str_nothing">Ничего</string>
 </resources>
