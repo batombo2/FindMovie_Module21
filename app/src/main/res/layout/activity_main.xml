@@ -50,21 +50,21 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/bollywoodl"
+                android:src="@drawable/poster7"
                 android:contentDescription="@string/str_nothing"
                 />
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/chaplin"
+                android:src="@drawable/poster8"
                 android:contentDescription="@string/str_nothing"
                 />
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/cyber"
+                android:src="@drawable/poster9"
                 android:contentDescription="@string/str_nothing"
                 />
 
