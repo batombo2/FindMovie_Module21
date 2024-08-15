@@ -7,4 +7,8 @@
     <string name="str_selections">Подборки</string>
     <string name="str_settings">Настройки</string>
     <string name="str_nothing">Ничего</string>
+    <string name="str_some_action">Some Action</string>
+    <string name="str_some_text">Some TEXT</string>
+
+
 </resources>

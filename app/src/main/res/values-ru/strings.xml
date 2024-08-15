@@ -8,4 +8,6 @@
     <string name="str_settings">Настройки</string>
     <string name="page_title">Поиск фильмов</string>
     <string name="str_nothing">Ничего</string>
+    <string name="str_some_action">Какое-то действие</string>
+    <string name="str_some_text">Случайный текст  你好</string>
 </resources>
