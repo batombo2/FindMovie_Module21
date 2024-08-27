@@ -8,5 +8,7 @@
     <string name="str_settings">Settings</string>
     <string name="page_title">FilmSearch</string>
     <string name="str_nothing">Nothing</string>
+    <string name="str_some_action">Some Action</string>
+    <string name="str_some_text">Some TEXT</string>
 
 </resources>

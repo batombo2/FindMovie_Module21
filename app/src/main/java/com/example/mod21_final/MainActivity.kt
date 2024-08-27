@@ -1,28 +1,43 @@
 package com.example.mod21_final
 
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
+
+
+import android.content.Intent
 import android.os.Bundle
-import android.view.animation.AnimationUtils
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() ,OnItemClickListener {
+    private val filmsDataBase:List<Film> = listOf(
+        Film("film1_title",R.drawable.poster1 , "film1_desc"),
+        Film("film2_title",R.drawable.poster2 , "film2_desc"),
+        Film("film3_title",R.drawable.poster3 , "film3_desc"),
+        Film("film4_title",R.drawable.poster4 , "film4_desc"),
+        Film("film5_title",R.drawable.poster5 , "film5_desc"),
+        Film("film6_title",R.drawable.poster6 , "film6_desc"),
+        Film("film7_title",R.drawable.poster7 , "film7_desc"),
+        Film("film8_title",R.drawable.poster8 , "film8_desc"),
+        Film("film89title",R.drawable.poster9 , "film9_desc"),
+        Film("film10_title",R.drawable.poster10 , "film10_desc"),
+    )
+
+    private lateinit var filmsAdapter: FilmListRecyclerAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
 
-        val topAppBar : MaterialToolbar = findViewById<MaterialToolbar>(R.id.topAppBar)
-
+        val topAppBar  = findViewById<MaterialToolbar>(R.id.topAppBar)
         topAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.tool_item_settings -> {
@@ -33,10 +48,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val bottom_navigation : BottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-        bottom_navigation.setOnNavigationItemSelectedListener {
-
+        val bottomNavigation : BottomNavigationView = findViewById(R.id.bottom_navigation)
+        // bottom_navigation.setOnNavigationItemSelectedListener {
+        bottomNavigation.setOnItemSelectedListener{
             when (it.itemId) {
                 R.id.menu_item_favorite -> {
                     Toast.makeText(this, "Избранное", Toast.LENGTH_SHORT).show()
@@ -54,37 +69,21 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // ************************************************************
-        val image2 = findViewById<ImageView>(R.id.image_poster2)
-        val scaleAnimator = AnimationUtils.loadAnimation( this , R.anim.hyperspace_jump)
-        scaleAnimator.duration = 500
+        //**********************************************************************************************
 
-        image2.setOnClickListener(){
-            image2.startAnimation(scaleAnimator)
-        }
+        filmsAdapter = FilmListRecyclerAdapter(this)
 
-        // *************************************************************
-        val image3 = findViewById<ImageView>(R.id.image_poster3)
-        val objectAnimator = ObjectAnimator.ofFloat( image3 ,"rotation" , 0f , 360f)
-        objectAnimator.duration = 1000
-        image3.setOnClickListener(){
-            objectAnimator.start()
+        val decorator = TopSpacingItemDecoration(8)
+
+        val mainRecycler:RecyclerView = findViewById(R.id.main_recycler)
+        mainRecycler.apply{
+            adapter = filmsAdapter
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            addItemDecoration(decorator)
         }
 
-        // ************************************************************
-        val image4 = findViewById<ImageView>(R.id.image_poster4)
-        val valueAnimator : ValueAnimator = ValueAnimator.ofFloat( 1f , 0f)
-        valueAnimator.duration = 1000
-        //valueAnimator.startDelay = 1000
-        valueAnimator.addUpdateListener { updatedAnimation ->
-            image4.alpha = updatedAnimation.animatedValue as Float
-            if (image4.alpha == 0f) {
-                image4.alpha = 1f
-            }
-        }
-        image4.setOnClickListener(){
-            valueAnimator.start()
-        }
+        filmsAdapter.addItems(filmsDataBase)
+
 
         // *************************************************************
 
@@ -94,4 +93,18 @@ class MainActivity : AppCompatActivity() {
             insets
         }
     }
+
+    override fun onItemClick(position: Int) {
+
+        //Toast.makeText(this, "Clicked item at position $position", Toast.LENGTH_SHORT).show()
+        val bundle = Bundle().apply {
+            putParcelable("film", filmsDataBase[position])
+        }
+        //bundle.putParcelable("film", filmsDataBase[position])
+        val intent = Intent(this@MainActivity, DetailsActivity::class.java)
+        intent.putExtras(bundle)
+        startActivity(intent)
+
+    }
+
 }
