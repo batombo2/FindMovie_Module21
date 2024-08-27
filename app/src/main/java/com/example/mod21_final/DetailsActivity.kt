@@ -17,9 +17,12 @@ class DetailsActivity : AppCompatActivity() {
 
         val toolBar = findViewById<Toolbar>(R.id.details_toolbar)
         val description = findViewById<TextView>(R.id.details_description)
+
         val bundle = intent.extras
         if(bundle != null) {
             val film: Film = bundle.get("film") as Film
+            
+            //al fff: Film = bundle.getParcelable("film" , Film::class.java) as Film
             // !!!!!!!!!!!!!!
             toolBar.title = film.title
             findViewById<AppCompatImageView>(R.id.details_poster).setImageResource(film.poster)
