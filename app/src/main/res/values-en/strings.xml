@@ -6,9 +6,13 @@
     <string name="str_watch_later">Watch this movie later</string>
     <string name="str_selections">Selections</string>
     <string name="str_settings">Settings</string>
-    <string name="page_title">FilmSearch</string>
+    <string name="page_title">Find a movie</string>
     <string name="str_nothing">Nothing</string>
     <string name="str_some_action">Some Action</string>
     <string name="str_some_text">Some TEXT</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="disclaimer">Some TEXT https://aaaaa.bbbbbbb.com</string>
+    <string name="str_not_sure">I\'m not sure</string>
+    <string name="str_have_think">" I need to think about it"</string>
 
 </resources>
