@@ -1,28 +1,48 @@
 package com.example.mod21_final
 
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
+
+
+import android.content.Intent
 import android.os.Bundle
-import android.view.animation.AnimationUtils
-import android.widget.ImageView
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity()  {
+    val filmsDataBase:List<Film> = listOf(
+        Film("film1_title",R.drawable.poster1 , "film1_desc"),
+        Film("film2_title",R.drawable.poster2 , "film2_desc"),
+        Film("film3_title",R.drawable.poster3 , "film3_desc"),
+        Film("film4_title",R.drawable.poster4 , "film4_desc"),
+        Film("film5_title",R.drawable.poster5 , "film5_desc"),
+        Film("film6_title",R.drawable.poster6 , "film6_desc"),
+        Film("film7_title",R.drawable.poster7 , "film7_desc"),
+        Film("film8_title",R.drawable.poster8 , "film8_desc"),
+        Film("film89title",R.drawable.poster9 , "film9_desc"),
+        Film("film10_title",R.drawable.poster10 , "film10_desc"),
+    )
+
+    private lateinit var filmsAdapter: FilmListRecyclerAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
 
-        val topAppBar : MaterialToolbar = findViewById<MaterialToolbar>(R.id.topAppBar)
-
+        val topAppBar  = findViewById<MaterialToolbar>(R.id.topAppBar)
         topAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.tool_item_settings -> {
@@ -33,10 +53,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val bottom_navigation : BottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-        bottom_navigation.setOnNavigationItemSelectedListener {
-
+        val bottomNavigation : BottomNavigationView = findViewById(R.id.bottom_navigation)
+        // bottom_navigation.setOnNavigationItemSelectedListener {
+        bottomNavigation.setOnItemSelectedListener{
             when (it.itemId) {
                 R.id.menu_item_favorite -> {
                     Toast.makeText(this, "Избранное", Toast.LENGTH_SHORT).show()
@@ -54,44 +74,69 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // ************************************************************
-        val image2 = findViewById<ImageView>(R.id.image_poster2)
-        val scaleAnimator = AnimationUtils.loadAnimation( this , R.anim.hyperspace_jump)
-        scaleAnimator.duration = 500
+        //************************************************************
 
-        image2.setOnClickListener(){
-            image2.startAnimation(scaleAnimator)
-        }
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.fragment_placeholder, HomeFragment())
+            .addToBackStack(null)
+            .commit()
 
-        // *************************************************************
-        val image3 = findViewById<ImageView>(R.id.image_poster3)
-        val objectAnimator = ObjectAnimator.ofFloat( image3 ,"rotation" , 0f , 360f)
-        objectAnimator.duration = 1000
-        image3.setOnClickListener(){
-            objectAnimator.start()
-        }
+    }
 
-        // ************************************************************
-        val image4 = findViewById<ImageView>(R.id.image_poster4)
-        val valueAnimator : ValueAnimator = ValueAnimator.ofFloat( 1f , 0f)
-        valueAnimator.duration = 1000
-        //valueAnimator.startDelay = 1000
-        valueAnimator.addUpdateListener { updatedAnimation ->
-            image4.alpha = updatedAnimation.animatedValue as Float
-            if (image4.alpha == 0f) {
-                image4.alpha = 1f
+    fun launchDetailsFragment(film: Film) {
+        val bundle = Bundle()
+        bundle.putParcelable("film", film)
+        val fragment = DetailsFragment()
+        fragment.arguments = bundle
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_placeholder, fragment)
+            .addToBackStack(null)
+            .commit()
+
+        // **********************************************************************************
+        //   Back button  --- AlertDialog
+        // Create a callback for the back button press
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                //
             }
         }
-        image4.setOnClickListener(){
-            valueAnimator.start()
-        }
-
-        // *************************************************************
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        // Add the callback to the OnBackPressedDispatcher
+        //onBackPressedDispatcher.addCallback(this, callback)
     }
+
+    @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")
+    override fun onBackPressed() {
+        val msg = "backStackEntryCount = ${supportFragmentManager.backStackEntryCount}"
+        if (supportFragmentManager.backStackEntryCount == 1) {
+            showExitConfirmationDialog()
+        } else{
+            super.onBackPressed()
+        }
+
+    }
+
+
+    private fun showExitConfirmationDialog() {
+            val dialog = AlertDialog.Builder(ContextThemeWrapper(this, R.style.MyDialog))
+                .setTitle("Exit")
+                .setMessage("Are you sure you want to exit?")
+                .setPositiveButton("Yes") { _, _ ->
+                    finish() // Close the activity
+                }
+                .setNegativeButton("No",){ dialog, which  ->
+                    //dialog.dismiss()
+                }
+                .setNeutralButton("Not sure") { _, _ ->
+                    Toast.makeText(this, "I need to think about it", Toast.LENGTH_SHORT).show()
+                }
+                .setView(EditText(this))
+                .create()
+            dialog.show()
+    }
+
+
 }

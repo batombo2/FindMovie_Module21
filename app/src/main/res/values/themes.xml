@@ -18,4 +18,10 @@
     </style>
 
     <style name="Theme.Mod21_final" parent="Base.Theme.Mod21_final" />
+
+    <style name="MyDialog" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:background">@android:color/holo_red_dark</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 </resources>

@@ -8,4 +8,10 @@
     <string name="str_settings">Настройки</string>
     <string name="page_title">Поиск фильмов</string>
     <string name="str_nothing">Ничего</string>
+    <string name="str_some_action">Какое-то действие</string>
+    <string name="str_some_text">Случайный текст  你好</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="disclaimer">Some TEXT https://aaaaa.bbbbbbb.com</string>
+    <string name="str_not_sure">Я не уверен</string>
+    <string name="str_have_think">надо подумать</string>
 </resources>
