@@ -2,9 +2,9 @@ package com.example.mod21_final
 
 
 
-import android.content.Intent
+
 import android.os.Bundle
-import android.widget.Button
+
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -12,11 +12,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -59,7 +54,12 @@ class MainActivity : AppCompatActivity()  {
         bottomNavigation.setOnItemSelectedListener{
             when (it.itemId) {
                 R.id.menu_item_favorite -> {
-                    Toast.makeText(this, "Избранное", Toast.LENGTH_SHORT).show()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.fragment_placeholder, FavoritesFragment())
+                        .addToBackStack(null)
+                        .commit()
+                    //Toast.makeText(this, "Избранное", Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.menu_item_later -> {
@@ -99,18 +99,20 @@ class MainActivity : AppCompatActivity()  {
         // **********************************************************************************
         //   Back button  --- AlertDialog
         // Create a callback for the back button press
+        /*
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 //
             }
         }
+         */
         // Add the callback to the OnBackPressedDispatcher
         //onBackPressedDispatcher.addCallback(this, callback)
     }
 
     @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")
     override fun onBackPressed() {
-        val msg = "backStackEntryCount = ${supportFragmentManager.backStackEntryCount}"
+        // val msg = "backStackEntryCount = ${supportFragmentManager.backStackEntryCount}"
         if (supportFragmentManager.backStackEntryCount == 1) {
             showExitConfirmationDialog()
         } else{
