@@ -1,24 +1,25 @@
 package com.example.mod21_final
 
+import android.content.Intent
 import android.os.Bundle
-import android.os.ParcelFileDescriptor
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 
 class DetailsFragment : Fragment() {
 
     //********111111111111111111111111111111111111
-    lateinit var toolbar: Toolbar
+    lateinit  var toolbar: Toolbar
     lateinit var description: TextView
     lateinit var details_poster : AppCompatImageView
+    lateinit var film: Film
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,13 +32,47 @@ class DetailsFragment : Fragment() {
         description = view.findViewById(R.id.details_description)
         details_poster = view.findViewById<AppCompatImageView>(R.id.details_poster)
 
+        val details_fab_favorites = view.findViewById<FloatingActionButton>(R.id.details_fab_favorites)
+        val details_fab_share = view.findViewById<FloatingActionButton>(R.id.details_fab_share)
+
         val bundle = arguments
         if(bundle != null) {
-            val film: Film = bundle.getParcelable<Film>("film")  as Film
+            film = bundle.getParcelable<Film>("film")  as Film
 
             toolbar.title = film.title
             details_poster.setImageResource(film.poster)
             description.text = film.description
+
+            details_fab_favorites.setImageResource(
+                if (film.isInFavorites) R.drawable.ic_baseline_favorite_24
+                else R.drawable.ic_baseline_favorite_border_24
+            )
+            details_fab_favorites.setOnClickListener {
+                if (!film.isInFavorites) {
+                    details_fab_favorites.setImageResource(R.drawable.ic_baseline_favorite_24)
+                    film.isInFavorites = true
+                } else {
+                    details_fab_favorites.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                    film.isInFavorites = false
+                }
+            }
+
+            details_fab_share.setOnClickListener {
+                //Создаем интент
+                val intent = Intent()
+                //Указываем action с которым он запускается
+                intent.action = Intent.ACTION_SEND
+                //Кладем данные о нашем фильме
+                intent.putExtra(
+                    Intent.EXTRA_TEXT,
+                    "Check out this film: ${film.title} \n\n ${film.description}"
+                )
+                //Указываем MIME тип, чтобы система знала, какое приложения предложить
+                intent.type = "text/plain"
+                //Запускаем наше активити
+                startActivity(Intent.createChooser(intent, "Share To:"))
+            }
+
         }
 
         toolbar.setOnMenuItemClickListener() {
@@ -70,6 +105,9 @@ class DetailsFragment : Fragment() {
             }
 
         }
+        //******************************
+
+
         return view //inflater.inflate(R.layout.fragment_details, container, false)
     }
 }
