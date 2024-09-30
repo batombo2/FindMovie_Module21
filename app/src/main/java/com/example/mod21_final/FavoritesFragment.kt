@@ -35,16 +35,12 @@ class FavoritesFragment : Fragment() , OnItemClickListener {
         filmsAdapter = FilmListRecyclerAdapter(this)
         favorites_recycler
             .apply {
-                //Присваиваем адаптер
-                adapter = filmsAdapter
-                //Присвои layoutmanager
-                layoutManager = LinearLayoutManager(requireContext())
-                //Применяем декоратор для отступов
-                val decorator = TopSpacingItemDecoration(8)
+                adapter = filmsAdapter                                           //Присваиваем адаптер
+                layoutManager = LinearLayoutManager(requireContext())           //Присвои layoutmanager
+                val decorator = TopSpacingItemDecoration(8)         //Применяем декоратор для отступов
                 addItemDecoration(decorator)
             }
-        //Кладем нашу БД в RV
-        filmsAdapter.addItems((requireActivity() as MainActivity).filmsDataBase)
+        filmsAdapter.addItems((requireActivity() as MainActivity).filmsDataBase)    //Кладем нашу БД в RV
 
     }
 
