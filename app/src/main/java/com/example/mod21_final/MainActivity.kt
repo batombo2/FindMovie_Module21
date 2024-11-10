@@ -29,13 +29,22 @@ class MainActivity : AppCompatActivity()  {
         Film("film10_title",R.drawable.poster10 , "film10_desc"),
     )
 
+    // ?????
     private lateinit var filmsAdapter: FilmListRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+        //************************************************************
 
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.fragment_placeholder, HomeFragment())
+            .addToBackStack(null)
+            .commit()
+        
+        //***********************************************************
 
         val topAppBar  = findViewById<MaterialToolbar>(R.id.topAppBar)
         topAppBar.setOnMenuItemClickListener {
@@ -74,16 +83,10 @@ class MainActivity : AppCompatActivity()  {
             }
         }
 
-        //************************************************************
-
-        supportFragmentManager
-            .beginTransaction()
-            .add(R.id.fragment_placeholder, HomeFragment())
-            .addToBackStack(null)
-            .commit()
-
     }
 
+    // загрузка фрагмента DetailsFragment во вложенный FrameLayout
+    // вызывается из фрагмента FavoritesFragment(который подгрузится тот же FrameLayout)
     fun launchDetailsFragment(film: Film) {
         val bundle = Bundle()
         bundle.putParcelable("film", film)
