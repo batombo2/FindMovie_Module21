@@ -11,10 +11,10 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
-class FilmListRecyclerAdapter (val clickListener: OnItemClickListener) : RecyclerView.Adapter<FilmListRecyclerAdapter .FilmViewHolder>() {
+class FilmListRecyclerAdapter (val clickListener: OnItemClickListener) : RecyclerView.Adapter<FilmListRecyclerAdapter.FilmViewHolder>() {
 
     private val items = mutableListOf<Film>()                     //Здесь у нас хранится список элементов для RV
-    private lateinit var filmsAdapter: FilmListRecyclerAdapter
+    //private lateinit var filmsAdapter: FilmListRecyclerAdapter
 
     inner class FilmViewHolder(val itemView: View ) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         val title: TextView = itemView.findViewById(R.id.title)
