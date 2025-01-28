@@ -90,6 +90,12 @@ class MainActivity : AppCompatActivity()  {
                 R.id.menu_item_favorite -> {
                     supportFragmentManager
                         .beginTransaction()
+                        .setCustomAnimations(
+                            R.anim.slide_in,  // enter
+                            R.anim.fade_out,  // exit
+                            R.anim.fade_in,   // popEnter
+                            R.anim.slide_out  // popExit
+                        )
                         .replace(R.id.fragment_placeholder, FavoritesFragment())
                         .addToBackStack(null)
                         .commit()
@@ -120,6 +126,12 @@ class MainActivity : AppCompatActivity()  {
 
         supportFragmentManager
             .beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in,  // enter
+                R.anim.fade_out,  // exit
+                R.anim.fade_in,   // popEnter
+                R.anim.slide_out  // popExit
+            )
             .replace(R.id.fragment_placeholder, fragment)
             .addToBackStack(null)
             .commit()

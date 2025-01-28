@@ -26,6 +26,8 @@ cloned from git@github.com:batombo2/FindMovie_Module21.git
         Сделать собственную анимацию появления главного экрана.
     Дополнительное задание ✱:
         Добавьте анимацию смены фрагментов.        
+FrameLayout --> androidx.fragment.app.FragmentContainerView
+
         
 Бато Гомбоев 
 bato_orel@mail.ru 
