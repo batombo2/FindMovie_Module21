@@ -10,11 +10,12 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
-class FilmListRecyclerAdapter (val clickListener: OnItemClickListener) : RecyclerView.Adapter<FilmListRecyclerAdapter .FilmViewHolder>() {
+class FilmListRecyclerAdapter (val clickListener: OnItemClickListener) : RecyclerView.Adapter<FilmListRecyclerAdapter.FilmViewHolder>() {
 
     private val items = mutableListOf<Film>()                     //Здесь у нас хранится список элементов для RV
-    private lateinit var filmsAdapter: FilmListRecyclerAdapter
+    //private lateinit var filmsAdapter: FilmListRecyclerAdapter
 
     inner class FilmViewHolder(val itemView: View ) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         val title: TextView = itemView.findViewById(R.id.title)
@@ -34,8 +35,15 @@ class FilmListRecyclerAdapter (val clickListener: OnItemClickListener) : Recycle
 
         fun bind(film: Film) {
             title.text = film.title
-            poster.setImageResource(film.poster)
+            //poster.setImageResource(film.poster)
+
+            Glide.with(itemView)
+                .load(film.poster)
+                .centerCrop()
+                .into(poster)
+
             description.text = film.description
+
         }
     }
 

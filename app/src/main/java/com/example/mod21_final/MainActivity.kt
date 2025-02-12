@@ -4,6 +4,7 @@ package com.example.mod21_final
 
 
 import android.os.Bundle
+import android.view.MenuItem
 
 import android.widget.EditText
 import android.widget.Toast
@@ -12,6 +13,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
+import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.FragmentActivity
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -38,7 +41,8 @@ class MainActivity : AppCompatActivity()  {
         setContentView(R.layout.activity_main)
         //************************************************************
 
-        supportFragmentManager
+        //FragmentActivity.getSupportFragmentManager()//
+        getSupportFragmentManager()
             .beginTransaction()
             .add(R.id.fragment_placeholder, HomeFragment())
             .addToBackStack(null)
@@ -47,6 +51,27 @@ class MainActivity : AppCompatActivity()  {
         //***********************************************************
 
         val topAppBar  = findViewById<MaterialToolbar>(R.id.topAppBar)
+
+        /*
+        val myListener1 = object:Toolbar.OnMenuItemClickListener {
+            override fun onMenuItemClick(item: MenuItem?): Boolean {
+                .....
+            }
+        }
+         */
+        /*
+        val myListener1 = Toolbar.OnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.tool_item_settings -> {
+                    Toast.makeText(this, "Настройки", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                else -> false
+            }
+        }
+        topAppBar.setOnMenuItemClickListener(myListener1)
+         */
+
         topAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.tool_item_settings -> {
@@ -65,6 +90,12 @@ class MainActivity : AppCompatActivity()  {
                 R.id.menu_item_favorite -> {
                     supportFragmentManager
                         .beginTransaction()
+                        .setCustomAnimations(
+                            R.anim.slide_in,  // enter
+                            R.anim.fade_out,  // exit
+                            R.anim.fade_in,   // popEnter
+                            R.anim.slide_out  // popExit
+                        )
                         .replace(R.id.fragment_placeholder, FavoritesFragment())
                         .addToBackStack(null)
                         .commit()
@@ -95,6 +126,12 @@ class MainActivity : AppCompatActivity()  {
 
         supportFragmentManager
             .beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in,  // enter
+                R.anim.fade_out,  // exit
+                R.anim.fade_in,   // popEnter
+                R.anim.slide_out  // popExit
+            )
             .replace(R.id.fragment_placeholder, fragment)
             .addToBackStack(null)
             .commit()
