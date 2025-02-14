@@ -27,7 +27,7 @@ cloned from git@github.com:batombo2/FindMovie_Module21.git
     Дополнительное задание ✱:
         Добавьте анимацию смены фрагментов.        
 
-FrameLayout --> androidx.fragment.app.FragmentContainerView
+    FrameLayout --> androidx.fragment.app.FragmentContainerView
 
 
 

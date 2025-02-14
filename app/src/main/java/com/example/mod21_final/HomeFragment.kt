@@ -35,19 +35,18 @@ class HomeFragment : Fragment(), OnItemClickListener{ // OnItemClickListener
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        /*
         val  homeFragmentRoot : ConstraintLayout = view.findViewById(R.id.home_fragment_root)
         val scene = Scene.getSceneForLayout(homeFragmentRoot, R.layout.merge_home_screen_content, requireContext())
-
         val searchSlide = Slide(Gravity.START).addTarget(R.id.search_view)  //  .TOP
         val recyclerSlide = Slide(Gravity.END).addTarget(R.id.main_recycler)  // .BOTTOM
-
         val customTransition = TransitionSet().apply {
             duration = 500
             addTransition(recyclerSlide)
             addTransition(searchSlide)
         }
-
         TransitionManager.go(scene , customTransition)
+         */
         //TransitionManager.go(scene)
 
 
@@ -89,6 +88,9 @@ class HomeFragment : Fragment(), OnItemClickListener{ // OnItemClickListener
             }
         }
         searchView.setOnQueryTextListener(queryTextListener)
+
+        val homeFragmentRoot = view.findViewById<ConstraintLayout>(R.id.home_fragment_root)
+        AnimationHelper.performFragmentCircularRevealAnimation(homeFragmentRoot, requireActivity(), 1)
 
         //*******************************************************
         //   схлапываем SearchView

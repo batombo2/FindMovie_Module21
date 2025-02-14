@@ -14,9 +14,16 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
+
+
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
 
 class MainActivity : AppCompatActivity()  {
     val filmsDataBase:List<Film> = listOf(
@@ -44,8 +51,8 @@ class MainActivity : AppCompatActivity()  {
         //FragmentActivity.getSupportFragmentManager()//
         getSupportFragmentManager()
             .beginTransaction()
-            .add(R.id.fragment_placeholder, HomeFragment())
-            .addToBackStack(null)
+            .add(R.id.fragment_placeholder, GreatingFragment())     // HomeFragment()
+           // .addToBackStack(null)
             .commit()
         
         //***********************************************************
@@ -87,34 +94,63 @@ class MainActivity : AppCompatActivity()  {
         // bottom_navigation.setOnNavigationItemSelectedListener {
         bottomNavigation.setOnItemSelectedListener{
             when (it.itemId) {
-                R.id.menu_item_favorite -> {
-                    supportFragmentManager
-                        .beginTransaction()
-                        .setCustomAnimations(
-                            R.anim.slide_in,  // enter
-                            R.anim.fade_out,  // exit
-                            R.anim.fade_in,   // popEnter
-                            R.anim.slide_out  // popExit
-                        )
-                        .replace(R.id.fragment_placeholder, FavoritesFragment())
-                        .addToBackStack(null)
-                        .commit()
-                    //Toast.makeText(this, "Избранное", Toast.LENGTH_SHORT).show()
+                R.id.menu_item_home -> {
+                    val tag = "home"
+                    val fragment = checkFragmentExistence(tag)
+                    //В первом параметре, если фрагмент не найден и метод вернул null, то с помощью
+                    //элвиса мы вызываем создание нового фрагмента
+                    changeFragment( fragment?: HomeFragment(), tag)
                     true
                 }
+
+                R.id.menu_item_favorite -> {
+                    val tag = "favorites"
+                    val fragment = checkFragmentExistence(tag)
+                    changeFragment(fragment ?: FavoritesFragment(), tag)
+                    true
+                }
+
                 R.id.menu_item_later -> {
-                    Toast.makeText(this, "Посмотреть похже", Toast.LENGTH_SHORT).show()
+                    val tag = "watch_later"
+                    val fragment = checkFragmentExistence(tag)
+                    changeFragment( fragment?: WatchLaterFragment(), tag)
+                    //Toast.makeText(this, "Посмотреть похже", Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.menu_item_selections -> {
-                    Toast.makeText(this, "Подборки", Toast.LENGTH_SHORT).show()
+                    val tag = "selections"
+                    val fragment = checkFragmentExistence(tag)
+                    changeFragment( fragment?: SelectionFragment(), tag)
+                    //Toast.makeText(this, "Подборки", Toast.LENGTH_SHORT).show()
                     true
                 }
                 else -> false
             }
         }
 
+        // Perform an action 2 seconds after activity starts using coroutines
+        lifecycleScope.launch {
+            delay(2000) // Wait for 2 seconds
+
+            val tag = "home"
+            val fragment = checkFragmentExistence(tag)
+            changeFragment( fragment?: HomeFragment(), tag)
+        }
+
     }
+
+    //Ищем фрагмент по тегу, если он есть то возвращаем его, если нет, то null
+    private fun checkFragmentExistence(tag: String): Fragment? =
+        supportFragmentManager.findFragmentByTag(tag)
+
+    private fun changeFragment(fragment: Fragment, tag: String) {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_placeholder, fragment, tag)
+            .addToBackStack(null)
+            .commit()
+    }
+
 
     // загрузка фрагмента DetailsFragment во вложенный FrameLayout
     // вызывается из фрагмента FavoritesFragment(который подгрузится тот же FrameLayout)
@@ -158,7 +194,6 @@ class MainActivity : AppCompatActivity()  {
         } else{
             super.onBackPressed()
         }
-
     }
 
 
