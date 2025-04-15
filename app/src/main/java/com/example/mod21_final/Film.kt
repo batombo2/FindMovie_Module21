@@ -5,8 +5,10 @@ import kotlinx.parcelize.Parcelize
 
 
 @Parcelize
-data class Film(val title: String,
-                val poster: Int,                  // id's of picture resources
-                val description: String,
-                var isInFavorites: Boolean = false
+data class Film(
+    val title: String,
+    val poster: Int,                  // id's of picture resources
+    val description: String,
+    var rating: Float = 0f,
+    var isInFavorites: Boolean = false
     ) : Parcelable{  }

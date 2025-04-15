@@ -27,16 +27,16 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity()  {
     val filmsDataBase:List<Film> = listOf(
-        Film("film1_title",R.drawable.poster1 , "film1_desc"),
-        Film("film2_title",R.drawable.poster2 , "film2_desc"),
-        Film("film3_title",R.drawable.poster3 , "film3_desc"),
-        Film("film4_title",R.drawable.poster4 , "film4_desc"),
-        Film("film5_title",R.drawable.poster5 , "film5_desc"),
-        Film("film6_title",R.drawable.poster6 , "film6_desc"),
-        Film("film7_title",R.drawable.poster7 , "film7_desc"),
-        Film("film8_title",R.drawable.poster8 , "film8_desc"),
-        Film("film89title",R.drawable.poster9 , "film9_desc"),
-        Film("film10_title",R.drawable.poster10 , "film10_desc"),
+        Film("film1_title",R.drawable.poster1 , "film1_desc" , 7.5f),
+        Film("film2_title",R.drawable.poster2 , "film2_desc" , 2.5f),
+        Film("film3_title",R.drawable.poster3 , "film3_desc" , 9.0f),
+        Film("film4_title",R.drawable.poster4 , "film4_desc" , 9.5f),
+        Film("film5_title",R.drawable.poster5 , "film5_desc" , 1.5f),
+        Film("film6_title",R.drawable.poster6 , "film6_desc" , 2.8f),
+        Film("film7_title",R.drawable.poster7 , "film7_desc" , 3.6f),
+        Film("film8_title",R.drawable.poster8 , "film8_desc" , 4.2f),
+        Film("film89title",R.drawable.poster9 , "film9_desc" , 5.1f),
+        Film("film10_title",R.drawable.poster10 , "film10_desc" , 6.4f),
     )
 
     // ?????
