@@ -1,5 +1,6 @@
 package com.example.mod21_final
 
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
@@ -22,15 +23,15 @@ class RatingDonutView @JvmOverloads
     private var centerY: Float = 0f
 
     private var stroke = 10f            //Толщина линии прогресса
-
     private var progress = 50           //Значение прогресса от 0 - 100
-
     private var scaleSize = 60f         //Значения размера текста внутри кольца
 
     private lateinit var strokePaint: Paint     //Краски для наших фигур
     private lateinit var digitPaint: Paint
     private lateinit var circlePaint: Paint
 
+    private var animateFlag :Boolean = false
+    private var animateDuration:Long  = 2000L
 
     private fun getPaintColor(progress: Int): Int =
         when(progress) {
@@ -68,6 +69,20 @@ class RatingDonutView @JvmOverloads
             else -> 300
         }
 
+    // Function to animate the progress
+    //  Благодарность умному ChatGPT
+    private fun animateProgress(targetProgress: Int, duration: Long) {
+        val animator = ValueAnimator.ofInt( 0 , targetProgress) //.ofFloat(progress.toFloat() , targetProgress)
+        animator.duration = duration
+        animator.addUpdateListener { animation ->
+            progress = animation.animatedValue as Int
+            // Invalidate or redraw your view here to update the animation
+            invalidate() // This should be called within a custom View class
+        }
+        animator.start()
+    }
+
+
     private fun convertProgressToDegrees(progress: Int): Float = progress * 3.6f
 
     private fun drawRating(canvas: Canvas) {
@@ -77,7 +92,12 @@ class RatingDonutView @JvmOverloads
 
         oval.set(0f - scale, 0f - scale, scale , scale)     //Устанавливаем размеры под наш овал
         canvas.drawCircle(0f, 0f, radius, circlePaint)          //Рисуем задний фон
-        canvas.drawArc(oval, -90f, convertProgressToDegrees(progress), false, strokePaint)  //Рисуем "арки", из них и будет состоять наше кольцо + у нас тут специальный метод
+        canvas.drawArc(
+            oval,
+            -90f,
+            convertProgressToDegrees(progress),
+            false,
+            strokePaint)  //Рисуем "арки", из них и будет состоять наше кольцо + у нас тут специальный метод
 
         canvas.restore()                                                //Восстанавливаем канвас
     }
@@ -141,6 +161,10 @@ class RatingDonutView @JvmOverloads
 
     override fun onDraw(canvas: Canvas) {
         drawRating(canvas)                                  //Рисуем кольцо и задний фон
+        if (!animateFlag) {
+            animateFlag = true
+            animateProgress( progress , animateDuration)
+        }
         drawText(canvas)                                    //Рисуем цифры
     }
 
@@ -149,6 +173,7 @@ class RatingDonutView @JvmOverloads
         progress = pr                                        //Кладем новое значение в наше поле класса
         initPaint()                                          //Создаем краски с новыми цветами
         invalidate()                                         //вызываем перерисовку View
+       //animateProgress( progress , animateDuration)
     }
 
 }
