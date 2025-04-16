@@ -27,9 +27,16 @@ cloned from git@github.com:batombo2/FindMovie_Module21.git
     Дополнительное задание ✱:
         Добавьте анимацию смены фрагментов.        
 
-FrameLayout --> androidx.fragment.app.FragmentContainerView
+    FrameLayout --> androidx.fragment.app.FragmentContainerView
 
 
+
+итоговое задание 29 модуль
+    Задание:
+        Сделать проявление фрагмента через Circular Reveal Animation.
+        Добавить еще два фрагмента под «Посмотреть позже» и «Подборки», анимировать их появление.
+    Дополнительное задание ✱:
+        Сделать Splash Screen (экран приветствия) с векторной анимацией.
 
         
 Бато Гомбоев 

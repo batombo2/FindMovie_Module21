@@ -8,7 +8,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/ic_launcher_background2"
+    android:background="@drawable/background_main"
+
     >
 
     <com.google.android.material.appbar.AppBarLayout
