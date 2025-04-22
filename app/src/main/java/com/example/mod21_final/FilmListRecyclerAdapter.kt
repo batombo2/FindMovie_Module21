@@ -21,6 +21,7 @@ class FilmListRecyclerAdapter (val clickListener: OnItemClickListener) : Recycle
         val title: TextView = itemView.findViewById(R.id.title)
         val poster : ImageView = itemView.findViewById(R.id.poster)
         val description: TextView = itemView.findViewById(R.id.description)
+        private val ratingDonut:RatingDonutView = itemView.findViewById(R.id.rating_donut)
 
         init {
             itemView.setOnClickListener(this)
@@ -43,7 +44,7 @@ class FilmListRecyclerAdapter (val clickListener: OnItemClickListener) : Recycle
                 .into(poster)
 
             description.text = film.description
-
+            ratingDonut.setProgress((film.rating * 10).toInt())
         }
     }
 
